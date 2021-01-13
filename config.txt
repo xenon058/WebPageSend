@@ -1,0 +1,5 @@
+excel_path=sample_data.xlsx
+form_url=https://docs.google.com/forms/d/e/1FAIpQLSfOVGxX31sAOhoXDDs7asedN5gYtWMfAKUlPhBuOIXele_J8g/viewform
+mail_address=f20aa000@gmail.com
+name=中央太郎
+group=群馬県警察コラボレイター
