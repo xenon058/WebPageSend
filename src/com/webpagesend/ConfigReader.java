@@ -23,6 +23,8 @@ public class ConfigReader {
 			String[] array = line.split("=");
 			if(array.length == 2) {
 				map.put(array[0], array[1]);
+			}else if(array.length == 1) {
+				map.put(array[0], "");
 			}else {
 				throw new IllegalStateException();
 			}

@@ -1,5 +1,5 @@
 excel_path=sample_data.xlsx
 form_url=https://www.internethotline.jp/reports/edit/IHOU5
-mail_address=f20aa000@gmail.com
-name=中央太郎
-group=群馬県警察コラボレイター
+mail_address=f20ba047@gmail.com
+name=
+group=19

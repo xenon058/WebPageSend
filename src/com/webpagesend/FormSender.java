@@ -44,7 +44,6 @@ public class FormSender {
 				System.out.println("送信完了");
 			}catch(Exception e) {
 				System.out.println("送信失敗");
-				e.printStackTrace();
 			}
 		}
 
