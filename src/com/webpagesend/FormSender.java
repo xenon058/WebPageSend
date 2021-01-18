@@ -11,6 +11,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class FormSender {
+	private static final String radioButtonPath = "//*[@id=\"formReport\"]/div[2]/div[2]/div/div[1]/div[2]/ul/li[1]/label";
+	private static final String urlFormPath  = "//*[@id=\"inputWebsite\"]/input";
+	private static final String mailAddressFormPath = "//*[@id=\"formReport\"]/div[2]/div[2]/div/div[3]/div/dl[1]/dd/input";
+	private static final String nameFormPath = "//*[@id=\"formReport\"]/div[2]/div[2]/div/div[3]/div/dl[2]/dd/input";
+	private static final String groupFormPath = "//*[@id=\"formReport\"]/div[2]/div[2]/div/div[3]/div/dl[3]/dd/input";
+	private static final String submitButton = "//*[@id=\"btnReport\"]";
+
 	private String url;
 	private Map<String, String> infomation;
 
@@ -37,6 +44,7 @@ public class FormSender {
 				System.out.println("送信完了");
 			}catch(Exception e) {
 				System.out.println("送信失敗");
+				e.printStackTrace();
 			}
 		}
 
@@ -48,26 +56,31 @@ public class FormSender {
 	private void inputField(TweetRecord record, WebDriver driver, WebDriverWait wait) throws Exception{
 
 		//ラジオボタン入力
-		List<WebElement> radioButtons = driver.findElements(By.className("freebirdThemedRadio"));
-		wait.until(ExpectedConditions.elementToBeClickable(radioButtons.get(record.getType())));
-		radioButtons.get(record.getType()).click();
-
-		List<WebElement> inputList = driver.findElements(By.className("exportInput"));
+		WebElement radioButton = driver.findElement(By.xpath(radioButtonPath));
+		wait.until(ExpectedConditions.elementToBeClickable(radioButton));
+		radioButton.click();
 
 		//入力
-		wait.until(ExpectedConditions.elementToBeClickable(inputList.get(0)));
-		inputList.get(1).sendKeys(record.getTweetUrl());
-		wait.until(ExpectedConditions.elementToBeClickable(inputList.get(1)));
-		inputList.get(2).sendKeys(infomation.get("mail_address"));
-		wait.until(ExpectedConditions.elementToBeClickable(inputList.get(2)));
-		inputList.get(3).sendKeys(infomation.get("name"));
-		wait.until(ExpectedConditions.elementToBeClickable(inputList.get(3)));
-		inputList.get(4).sendKeys(infomation.get("group"));
+		WebElement urlForm = driver.findElement(By.xpath(urlFormPath));
+		wait.until(ExpectedConditions.elementToBeClickable(urlForm));
+		urlForm.sendKeys(record.getTweetUrl());
+
+		WebElement mailAddressForm = driver.findElement(By.xpath(mailAddressFormPath));
+		wait.until(ExpectedConditions.elementToBeClickable(mailAddressForm));
+		mailAddressForm.sendKeys(infomation.get("mail_address"));
+
+		WebElement nameForm = driver.findElement(By.xpath(nameFormPath));
+		wait.until(ExpectedConditions.elementToBeClickable(nameForm));
+		nameForm.sendKeys(infomation.get("name"));
+
+		WebElement groupForm = driver.findElement(By.xpath(groupFormPath));
+		wait.until(ExpectedConditions.elementToBeClickable(groupForm));
+		groupForm.sendKeys(infomation.get("group"));
 
 		//送信
-		WebElement sendButton = driver.
-				findElement(By.className("freebirdFormviewerViewNavigationSubmitButton"));
-		wait.until(ExpectedConditions.elementToBeClickable(sendButton));
-		sendButton.click();
+//		WebElement sendButton = driver.
+//				findElement(By.xpath(submitButton));
+//		wait.until(ExpectedConditions.elementToBeClickable(sendButton));
+//		sendButton.click();
 	}
 }
