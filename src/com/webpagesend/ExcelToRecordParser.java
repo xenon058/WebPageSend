@@ -33,11 +33,11 @@ public class ExcelToRecordParser {
 			while(rowIterator.hasNext()) {
 				row = rowIterator.next();
 
-				Cell flagCell = row.getCell(1);
+				Cell flagCell = row.getCell(0);
 				if(isEnable(flagCell)) {
 					//読み込んでレコードを生成
 					records.add(new TweetRecord(
-							row.getCell(0).getStringCellValue()
+							row.getCell(3).getStringCellValue()
 							));
 				}
 

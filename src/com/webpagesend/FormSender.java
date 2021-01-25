@@ -25,7 +25,7 @@ public class FormSender {
 		this.url = url;
 	}
 
-	public void send(List<TweetRecord> records, Map<String, String> infomation){
+	public void send(List<TweetRecord> records, Map<String, String> infomation) throws Exception{
 		this.infomation = infomation;
 
 		System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
@@ -37,14 +37,8 @@ public class FormSender {
 
 		//全てのレコードを送信するまで繰り返し
 		for(TweetRecord record:records) {
-			try {
-				System.out.println("回答開始");
-				driver.get(this.url);
-				inputField(record, driver, wait);
-				System.out.println("送信完了");
-			}catch(Exception e) {
-				System.out.println("送信失敗");
-			}
+			driver.get(this.url);
+			inputField(record, driver, wait);
 		}
 
 		//ページを閉じる
@@ -77,9 +71,9 @@ public class FormSender {
 		groupForm.sendKeys(infomation.get("group"));
 
 		//送信
-//		WebElement sendButton = driver.
-//				findElement(By.xpath(submitButton));
-//		wait.until(ExpectedConditions.elementToBeClickable(sendButton));
-//		sendButton.click();
+		WebElement sendButton = driver.
+				findElement(By.xpath(submitButton));
+		wait.until(ExpectedConditions.elementToBeClickable(sendButton));
+		sendButton.click();
 	}
 }

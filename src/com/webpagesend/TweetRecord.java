@@ -14,4 +14,9 @@ public class TweetRecord {
 	public void setTweetUrl(String tweetUrl) {
 		this.tweetUrl = tweetUrl;
 	}
+
+	@Override
+	public String toString() {
+		return "tweetUrl：" + this.tweetUrl;
+	}
 }
