@@ -59,6 +59,7 @@ public class Main {
 			sender.send(records, config);
 		}catch(Exception e) {
 			System.out.println("送信に失敗しました");
+			//e.printStackTrace();
 			return;
 		}
 
@@ -73,6 +74,7 @@ public class Main {
 			}
 		}catch (IOException e) {
 			System.out.println("エクセルファイルのバックアップ中にエラーが発生しました");
+			e.printStackTrace();
 		}
 	}
 }

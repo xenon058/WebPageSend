@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: miyamoto
+Built-By: f18aa011
 Build-Jdk: 11.0.6
 Class-Path: ./ poi-4.1.2.jar commons-codec-1.13.jar commons-collections4
  -4.4.jar commons-math3-3.6.1.jar SparseBitSet-1.2.jar poi-ooxml-4.1.2.j

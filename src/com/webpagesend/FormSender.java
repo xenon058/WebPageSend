@@ -1,5 +1,7 @@
 package com.webpagesend;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -11,12 +13,18 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class FormSender {
-	private static final String radioButtonPath = "//*[@id=\"formReport\"]/div[2]/div[2]/div/div[1]/div[2]/ul/li[1]/label";
-	private static final String urlFormPath  = "//*[@id=\"inputWebsite\"]/input";
-	private static final String mailAddressFormPath = "//*[@id=\"formReport\"]/div[2]/div[2]/div/div[3]/div/dl[1]/dd/input";
-	private static final String nameFormPath = "//*[@id=\"formReport\"]/div[2]/div[2]/div/div[3]/div/dl[2]/dd/input";
-	private static final String groupFormPath = "//*[@id=\"formReport\"]/div[2]/div[2]/div/div[3]/div/dl[3]/dd/input";
-	private static final String submitButton = "//*[@id=\"btnReport\"]";
+	private static final String urlFormPath = "//*[@id=\"mG61Hd\"]/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div/div[1]/input";
+	private static final String RadioButtonPath = "//*[@id=\"i9\"]";
+	private static final String CheckBox1Path  = "//*[@id=\"i23\"]";
+	private static final String CheckBox2Path  = "//*[@id=\"i26\"]";
+	private static final String nameFormPath = "//*[@id=\"mG61Hd\"]/div[2]/div/div[2]/div[4]/div/div/div[2]/div/div[1]/div/div[1]/input";
+	private static final String groupFormPath = "//*[@id=\"mG61Hd\"]/div[2]/div/div[2]/div[5]/div/div/div[2]/div/div[1]/div/div[1]/input";
+	private static final String ageFormPath = "//*[@id=\"mG61Hd\"]/div[2]/div/div[2]/div[6]/div/div/div[2]/div/div[1]/div/div[1]/input";
+
+	LocalDate date = LocalDate.now();
+	String datestr = date.format(DateTimeFormatter.ISO_DATE);
+	private static final String dateFormPath = "//*[@id=\"mG61Hd\"]/div[2]/div/div[2]/div[7]/div/div/div[2]/div/div/div[2]/div[1]/div/div[1]/input";
+	private static final String submitButton = "//*[@id=\"mG61Hd\"]/div[2]/div/div[3]/div[1]/div/div";
 
 	private String url;
 	private Map<String, String> infomation;
@@ -28,7 +36,7 @@ public class FormSender {
 	public void send(List<TweetRecord> records, Map<String, String> infomation) throws Exception{
 		this.infomation = infomation;
 
-		System.setProperty("webdriver.chrome.driver", "./lib/chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "./lib/chromedriver");
 
 		WebDriver driver = new ChromeDriver();
 
@@ -48,19 +56,22 @@ public class FormSender {
 
 	private void inputField(TweetRecord record, WebDriver driver, WebDriverWait wait) throws Exception{
 
-		//ラジオボタン入力
-		WebElement radioButton = driver.findElement(By.xpath(radioButtonPath));
-		wait.until(ExpectedConditions.elementToBeClickable(radioButton));
-		radioButton.click();
-
-		//入力
 		WebElement urlForm = driver.findElement(By.xpath(urlFormPath));
 		wait.until(ExpectedConditions.elementToBeClickable(urlForm));
 		urlForm.sendKeys(record.getTweetUrl());
+		//ラジオボタン入力
+		WebElement RadioButton = driver.findElement(By.xpath(RadioButtonPath));
+		wait.until(ExpectedConditions.elementToBeClickable(RadioButton));
+		RadioButton.click();
 
-		WebElement mailAddressForm = driver.findElement(By.xpath(mailAddressFormPath));
-		wait.until(ExpectedConditions.elementToBeClickable(mailAddressForm));
-		mailAddressForm.sendKeys(infomation.get("mail_address"));
+		//入力
+		WebElement CheckBox1 = driver.findElement(By.xpath(CheckBox1Path));
+		wait.until(ExpectedConditions.elementToBeClickable(CheckBox1));
+		CheckBox1.click();
+
+		WebElement CheckBox2 = driver.findElement(By.xpath(CheckBox2Path));
+		wait.until(ExpectedConditions.elementToBeClickable(CheckBox2));
+		CheckBox2.click();
 
 		WebElement nameForm = driver.findElement(By.xpath(nameFormPath));
 		wait.until(ExpectedConditions.elementToBeClickable(nameForm));
@@ -69,6 +80,14 @@ public class FormSender {
 		WebElement groupForm = driver.findElement(By.xpath(groupFormPath));
 		wait.until(ExpectedConditions.elementToBeClickable(groupForm));
 		groupForm.sendKeys(infomation.get("group"));
+
+		WebElement ageForm = driver.findElement(By.xpath(ageFormPath));
+		wait.until(ExpectedConditions.elementToBeClickable(ageForm));
+		ageForm.sendKeys(infomation.get("age"));
+
+		WebElement dateForm = driver.findElement(By.xpath(dateFormPath));
+		wait.until(ExpectedConditions.elementToBeClickable(dateForm));
+		dateForm.sendKeys(datestr);
 
 		//送信
 		WebElement sendButton = driver.
