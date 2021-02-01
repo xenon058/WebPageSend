@@ -1,0 +1,7 @@
+excel_directory=../excel
+backup_directory=backup
+form_url=https://docs.google.com/forms/d/e/1FAIpQLSd1MKqfgzepJQhN9StZFM2sBvsDVqXpxEd1qrQOOo7DRYat1Q/viewform
+mail_address=mail
+name=** **
+group=school
+age=20

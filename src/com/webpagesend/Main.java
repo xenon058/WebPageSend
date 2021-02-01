@@ -16,6 +16,7 @@ public class Main {
 		//リソース読み込み
 		Map<String, String> config = null;
 		try {
+			//ConfigReaderからMapを取得
 			config = new ConfigReader(confilFile).read();
 		}catch(IOException e) {
 			System.out.println("設定ファイルの読み込みに失敗しました");
@@ -56,6 +57,7 @@ public class Main {
 		final String formURL = config.get("form_url");
 		FormSender sender = new FormSender(formURL);
 		try {
+			//送信
 			sender.send(records, config);
 		}catch(Exception e) {
 			System.out.println("送信に失敗しました");
@@ -68,8 +70,10 @@ public class Main {
 		Path targetDirPath = Paths.get(copyDir);
 		try {
 			for(String path:excelFiles) {
+				//パス取得
 				Path sourcePath = Paths.get(path);
 				Path targetPath = targetDirPath.resolve(sourcePath.getFileName());
+				//移動
 				Files.move(sourcePath, targetPath);
 			}
 		}catch (IOException e) {

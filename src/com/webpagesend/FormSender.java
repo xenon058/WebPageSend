@@ -13,6 +13,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class FormSender {
+	//日付フォーム用に現在の日付を取得
+	LocalDate date = LocalDate.now();
+	String datestr = date.format(DateTimeFormatter.ISO_DATE);
+	//変数定義 フォームのXpathを記述
 	private static final String urlFormPath = "//*[@id=\"mG61Hd\"]/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div/div[1]/input";
 	private static final String RadioButtonPath = "//*[@id=\"i9\"]";
 	private static final String CheckBox1Path  = "//*[@id=\"i23\"]";
@@ -20,11 +24,9 @@ public class FormSender {
 	private static final String nameFormPath = "//*[@id=\"mG61Hd\"]/div[2]/div/div[2]/div[4]/div/div/div[2]/div/div[1]/div/div[1]/input";
 	private static final String groupFormPath = "//*[@id=\"mG61Hd\"]/div[2]/div/div[2]/div[5]/div/div/div[2]/div/div[1]/div/div[1]/input";
 	private static final String ageFormPath = "//*[@id=\"mG61Hd\"]/div[2]/div/div[2]/div[6]/div/div/div[2]/div/div[1]/div/div[1]/input";
-
-	LocalDate date = LocalDate.now();
-	String datestr = date.format(DateTimeFormatter.ISO_DATE);
 	private static final String dateFormPath = "//*[@id=\"mG61Hd\"]/div[2]/div/div[2]/div[7]/div/div/div[2]/div/div/div[2]/div[1]/div/div[1]/input";
 	private static final String submitButton = "//*[@id=\"mG61Hd\"]/div[2]/div/div[3]/div[1]/div/div";
+
 
 	private String url;
 	private Map<String, String> infomation;
@@ -36,6 +38,7 @@ public class FormSender {
 	public void send(List<TweetRecord> records, Map<String, String> infomation) throws Exception{
 		this.infomation = infomation;
 
+		//プロパティ設定
 		System.setProperty("webdriver.chrome.driver", "./lib/chromedriver");
 
 		WebDriver driver = new ChromeDriver();
@@ -56,35 +59,42 @@ public class FormSender {
 
 	private void inputField(TweetRecord record, WebDriver driver, WebDriverWait wait) throws Exception{
 
+		//報告するURL
 		WebElement urlForm = driver.findElement(By.xpath(urlFormPath));
 		wait.until(ExpectedConditions.elementToBeClickable(urlForm));
 		urlForm.sendKeys(record.getTweetUrl());
-		//ラジオボタン入力
+
+		//ラジオボタン
 		WebElement RadioButton = driver.findElement(By.xpath(RadioButtonPath));
 		wait.until(ExpectedConditions.elementToBeClickable(RadioButton));
 		RadioButton.click();
 
-		//入力
+		//チェックボックス(興味本位)
 		WebElement CheckBox1 = driver.findElement(By.xpath(CheckBox1Path));
 		wait.until(ExpectedConditions.elementToBeClickable(CheckBox1));
 		CheckBox1.click();
 
+		//チェックボックス二つ目(興味本位)
 		WebElement CheckBox2 = driver.findElement(By.xpath(CheckBox2Path));
 		wait.until(ExpectedConditions.elementToBeClickable(CheckBox2));
 		CheckBox2.click();
 
+		//名前
 		WebElement nameForm = driver.findElement(By.xpath(nameFormPath));
 		wait.until(ExpectedConditions.elementToBeClickable(nameForm));
 		nameForm.sendKeys(infomation.get("name"));
 
+		//所属
 		WebElement groupForm = driver.findElement(By.xpath(groupFormPath));
 		wait.until(ExpectedConditions.elementToBeClickable(groupForm));
 		groupForm.sendKeys(infomation.get("group"));
 
+		//年齢
 		WebElement ageForm = driver.findElement(By.xpath(ageFormPath));
 		wait.until(ExpectedConditions.elementToBeClickable(ageForm));
 		ageForm.sendKeys(infomation.get("age"));
 
+		//日付 (興味本位)
 		WebElement dateForm = driver.findElement(By.xpath(dateFormPath));
 		wait.until(ExpectedConditions.elementToBeClickable(dateForm));
 		dateForm.sendKeys(datestr);
